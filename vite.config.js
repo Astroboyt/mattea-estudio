@@ -9,6 +9,10 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         project: resolve(__dirname, 'project-barcelona.html'),
+        gallery: resolve(__dirname, 'gallery.html'),
+        shop: resolve(__dirname, 'shop.html'),
+        about: resolve(__dirname, 'about.html'),
+        contact: resolve(__dirname, 'contact.html'),
       },
     },
   },

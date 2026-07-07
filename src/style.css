@@ -117,6 +117,7 @@ h1, h2, h3, p { margin: 0; }
 }
 
 .site-nav {
+  margin-left: -40px;
   font-size: 18px;
   line-height: 1;
   width: 312px;
@@ -296,15 +297,19 @@ h1, h2, h3, p { margin: 0; }
 /* ============================================================
    About
    ============================================================ */
-.about {
+.about,
+.about-page {
   padding-top: clamp(28px, 2vw, 35px);
   display: grid;
   grid-template-columns: 32.3% 48.8%;
   column-gap: 6.5%;
-  align-items: start;
+  align-items: stretch;
+}
+.about-page {
+  padding-top: clamp(40px, 4vw, 72px);
+  padding-bottom: clamp(64px, 5vw, 100px);
 }
 .about-photo { border-radius: 8px; }
-.ratio-about { aspect-ratio: 427 / 481; }
 
 .about-heading { display: flex; flex-direction: column; }
 .about-title { font-weight: 400; font-size: var(--text-about); }
@@ -315,7 +320,6 @@ h1, h2, h3, p { margin: 0; }
 }
 .about-body { margin-top: 40px; color: var(--grey); }
 .about-body p + p { margin-top: 1.35em; }
-.about-listen { font-weight: 500; }
 .btn-meet { margin-top: 60px; }
 
 /* ============================================================
@@ -333,39 +337,68 @@ h1, h2, h3, p { margin: 0; }
    Process — Commission a Mural
    ============================================================ */
 .process { padding-top: clamp(24px, 1.9vw, 33px); }
-.process-lead { margin-top: 13px; color: var(--grey); }
+.process-kicker {
+  margin-top: 13px;
+  font-weight: 500;
+  font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.125rem);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
 
 .process-grid {
   margin-top: clamp(36px, 3vw, 54px);
+  border-top: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+}
+.process-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-block: 1px solid var(--black);
-  min-height: 365px;
 }
+.process-row + .process-row { border-top: 1px solid var(--black); }
 .process-col {
   border-right: 1px solid var(--black);
   padding: 28px clamp(18px, 1.8vw, 30px) 36px;
+  min-height: 460px;
+  transition: background-color 0.3s ease;
 }
 .process-col:first-child { border-left: 1px solid var(--black); }
+.process-col:hover { background-color: rgba(0, 0, 0, 0.05); }
 .process-icon {
   height: 104px;
   display: flex;
   align-items: center;
   color: var(--black);
 }
-.process-icon svg { max-width: 100%; height: auto; }
-.process-icon-rotated svg { transform: rotate(90deg); width: 88px; }
+.process-icon svg { height: 104px; width: auto; max-width: 100%; }
 .process-title {
   font-weight: 700;
   font-size: var(--text-h3);
   margin-top: 24px;
 }
 .process-body { margin-top: 20px; max-width: 384px; color: var(--grey); }
+.process-list {
+  margin-top: 20px;
+  padding-left: 20px;
+  max-width: 384px;
+  color: var(--grey);
+}
+.process-list li { margin-top: 6px; }
+.process-list li:first-child { margin-top: 0; }
+
+.process-outro {
+  margin-top: clamp(32px, 2.8vw, 48px);
+  max-width: 780px;
+  color: var(--grey);
+}
 
 /* ============================================================
    Contact — Write to Us
    ============================================================ */
 .contact { padding-top: clamp(32px, 2.7vw, 48px); }
+.contact-page {
+  padding-top: clamp(40px, 4vw, 72px);
+  padding-bottom: clamp(64px, 5vw, 100px);
+}
 .section-head {
   display: flex;
   align-items: center;
@@ -409,6 +442,31 @@ h1, h2, h3, p { margin: 0; }
   border-radius: 0;
 }
 .field input:focus-visible { box-shadow: 0 2px 0 0 var(--black); }
+
+.field-file {
+  display: block;
+  min-height: 0;
+  padding-bottom: 24px;
+}
+.field-file label { display: block; margin-bottom: 14px; }
+.field-file input[type="file"] {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--grey);
+}
+.field-file input[type="file"]::file-selector-button {
+  border: 1px solid var(--black);
+  background: transparent;
+  color: var(--black);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  padding: 10px 20px;
+  margin-right: 14px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.field-file input[type="file"]::file-selector-button:hover { background: var(--black); color: var(--white); }
 
 .field-message {
   border-bottom: 0;
@@ -539,15 +597,33 @@ h1, h2, h3, p { margin: 0; }
   .site-nav { grid-column: 1; grid-row: 1; }
   .header-box { display: none; }
 
-  .about { grid-template-columns: 1fr; row-gap: 40px; }
-  .about-photo { max-width: 480px; }
+  .about,
+  .about-page { grid-template-columns: 1fr; row-gap: 40px; }
+  .about-photo { max-width: 480px; aspect-ratio: 427 / 481; }
 
-  .process-grid { grid-template-columns: 1fr; min-height: 0; }
-  .process-col { border-right: 0; border-left: 0 !important; }
+  .process-row { grid-template-columns: 1fr; }
+  .process-col { border-right: 0; border-left: 0 !important; min-height: 0; }
   .process-col + .process-col { border-top: 1px solid var(--black); }
 
   .gallery-row { grid-template-columns: 1fr 1fr; }
   .gallery-row figure:last-child { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+}
+
+@media (max-width: 640px) {
+  .header-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    row-gap: 24px;
+  }
+  .logo-header { grid-column: 1; grid-row: 1; width: clamp(180px, 55vw, 260px); }
+  .logo-mark { align-items: center; }
+  .site-nav {
+    grid-column: 1;
+    grid-row: 2;
+    margin-left: 0;
+    width: 100%;
+    max-width: 320px;
+  }
 }
 
 @media (max-width: 560px) {
@@ -711,4 +787,154 @@ h1, h2, h3, p { margin: 0; }
   font-size: clamp(14px, 1.4vw, 20px);
   opacity: 0.55;
   pointer-events: none;
+}
+
+/* ============================================================
+   GALLERY PAGE
+   ============================================================ */
+.gallery-page {
+  padding-top: clamp(40px, 4vw, 72px);
+  padding-bottom: clamp(64px, 5vw, 100px);
+  padding-inline: clamp(20px, 4vw, 64px);
+  max-width: 1920px;
+  margin-inline: auto;
+}
+.gallery-lead {
+  margin-top: 16px;
+  max-width: 640px;
+  color: var(--grey);
+}
+.gallery-page .rule { margin-top: clamp(32px, 2.8vw, 49px); }
+
+.gallery-grid {
+  margin-top: clamp(40px, 3.5vw, 64px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--black);
+  border-left: 1px solid var(--black);
+}
+.gallery-item {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  border-right: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  overflow: hidden;
+}
+.gallery-item img { transition: transform 0.6s ease; }
+.gallery-item:hover img,
+.gallery-item:focus-within img { transform: scale(1.05); }
+
+.gallery-card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30%;
+  min-height: 88px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--white);
+  border-top: 1px solid var(--black);
+  padding: 16px clamp(16px, 1.8vw, 24px);
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.gallery-item:hover .gallery-card,
+.gallery-item:focus-within .gallery-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+.gallery-card-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 6px;
+}
+.gallery-card p {
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--black);
+}
+
+@media (max-width: 900px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .gallery-grid { grid-template-columns: 1fr; }
+}
+
+/* Touch devices: no hover, so keep the idea visible below the image */
+@media (hover: none) {
+  .gallery-item { aspect-ratio: auto; }
+  .gallery-item img { aspect-ratio: 4 / 5; object-fit: cover; }
+  .gallery-card {
+    position: static;
+    height: auto;
+    opacity: 1;
+    transform: none;
+    border: 0;
+    border-top: 0;
+    padding: 12px 0 0;
+  }
+}
+
+/* ============================================================
+   SHOP PAGE
+   ============================================================ */
+.shop-page {
+  padding-top: clamp(40px, 4vw, 72px);
+  padding-bottom: clamp(64px, 5vw, 100px);
+  padding-inline: clamp(20px, 4vw, 64px);
+  max-width: 1920px;
+  margin-inline: auto;
+}
+.shop-lead {
+  margin-top: 16px;
+  max-width: 640px;
+  color: var(--grey);
+}
+.shop-page .rule { margin-top: clamp(32px, 2.8vw, 49px); }
+
+.shop-grid {
+  margin-top: clamp(48px, 4vw, 72px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--black);
+  border-left: 1px solid var(--black);
+}
+.shop-item {
+  border-right: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  padding: clamp(20px, 1.8vw, 28px);
+}
+.shop-item-photo {
+  margin: 0;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+.shop-item-title {
+  margin-top: 20px;
+  font-weight: 500;
+  font-size: 17px;
+}
+.shop-item-price {
+  margin-top: 4px;
+  color: var(--grey);
+}
+
+@media (max-width: 1100px) {
+  .shop-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 760px) {
+  .shop-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .shop-grid { grid-template-columns: 1fr; }
 }

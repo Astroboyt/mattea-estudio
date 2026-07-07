@@ -8,6 +8,29 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText)
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 /* ------------------------------------------------------------
+   Lead form — front-end only for now
+   ------------------------------------------------------------ */
+const form = document.querySelector('.lead-form')
+if (form) {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    if (!form.reportValidity()) return
+    const done = form.querySelector('.form-done')
+    const parts = form.querySelectorAll('.field, .btn-send')
+    done.hidden = false
+    if (reduceMotion) {
+      parts.forEach((p) => (p.style.display = 'none'))
+      return
+    }
+    gsap.timeline()
+      .to(parts, { opacity: 0, y: -12, stagger: 0.04, duration: 0.35, ease: 'power2.in' })
+      .set(parts, { display: 'none' })
+      .fromTo(done, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+      .add(() => ScrollTrigger.refresh())
+  })
+}
+
+/* ------------------------------------------------------------
    Strip carousel — arrows + native scroll + drag
    Runs regardless of motion preference (arrows are a control)
    ------------------------------------------------------------ */
@@ -117,10 +140,20 @@ function init() {
   })
 
   /* Text/button reveals */
-  gsap.utils.toArray('[data-anim="reveal"]').forEach((el) => {
+  gsap.utils.toArray('[data-anim="reveal"], [data-anim="field"]').forEach((el) => {
     gsap.to(el, {
       opacity: 1, y: 0, startAt: { y: 28 },
       duration: 0.9, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%' },
+    })
+  })
+
+  /* Hand-drawn icons — settle in with a little rotation */
+  gsap.utils.toArray('[data-anim="icon"]').forEach((el) => {
+    gsap.to(el, {
+      opacity: 1, rotation: 0, scale: 1,
+      startAt: { rotation: -8, scale: 0.85, transformOrigin: '50% 50%' },
+      duration: 1, ease: 'back.out(1.6)',
       scrollTrigger: { trigger: el, start: 'top 88%' },
     })
   })

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Mattea Estudio</title>
+  <meta name="description" content="Have a wall waiting for a story? Get in touch with Matt &amp; Tea to start your mural." />
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700&display=swap" rel="stylesheet" />
+  <script>document.documentElement.classList.add("js")</script>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+<div id="smooth-wrapper">
+<div id="smooth-content">
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="shell header-grid">
+
+      <nav class="site-nav" aria-label="Main navigation" data-anim="nav">
+        <div class="nav-row nav-row-1">
+          <a href="gallery.html">Gallery</a>
+          <a href="about.html">Design</a>
+          <a href="shop.html">Shop</a>
+        </div>
+        <div class="nav-row nav-row-2">
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </nav>
+
+      <a class="logo logo-header" href="index.html" aria-label="Mattea Estudio — home" data-anim="logo">
+        <span class="logo-mark">
+          <span class="logo-tagline">Studio</span>
+          <span class="logo-rule" aria-hidden="true"></span>
+          <span class="logo-word"><strong>MAT</strong>TEA</span>
+        </span>
+      </a>
+
+      <!-- Empty bordered box from the Figma header — no content defined in the file yet -->
+      <div class="header-box" data-anim="nav" aria-hidden="true"></div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ WRITE TO US — LEAD FORM ============ -->
+    <section class="contact-page shell" aria-labelledby="contact-title">
+      <div class="section-head">
+        <span class="section-icon" data-anim="icon">
+          <svg width="23" height="81" viewBox="0 0 23 81" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M22.0454 49.8474C22.0454 42.5462 18.5753 8.13541 11.6327 1.19281L10.4398 0L9.2876 1.23564C2.98763 8.00462 0 42.5102 0 50.233C0 58.3165 3.31462 66.0438 9.335 71.9875L9.5334 72.1836V81H11.5357V72.0732L11.6281 71.9807C18.4377 65.1982 22.0386 57.5521 22.0454 49.8474ZM2.00231 50.233C2.00231 42.6635 4.72612 13.4793 9.53566 4.39916V69.302C4.66524 63.9265 2.00231 57.2206 2.00231 50.233ZM11.538 4.38111C16.9676 13.5289 20.0432 42.4222 20.0432 49.8677C20.0364 56.5014 17.1029 63.1463 11.538 69.1892V4.38111Z" fill="currentColor"/>
+          </svg>
+        </span>
+        <h1 class="h-script" id="contact-title" data-anim="words">Write to Us</h1>
+      </div>
+      <p class="contact-lead" data-anim="reveal">Have a wall waiting for a story?</p>
+
+      <form class="lead-form" novalidate>
+        <div class="field" data-anim="field">
+          <label for="f-name">Name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field" data-anim="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field" data-anim="field">
+          <label for="f-place">Where&rsquo;s the wall?</label>
+          <input id="f-place" name="place" type="text" autocomplete="address-level2" />
+        </div>
+        <div class="field field-file" data-anim="field">
+          <label for="f-photos">Photos of the space, references or ideas</label>
+          <input id="f-photos" name="photos" type="file" accept="image/*,.pdf" multiple />
+        </div>
+        <div class="field field-message" data-anim="field">
+          <label for="f-message">Tell us about your space, your goals and your ideas</label>
+          <textarea id="f-message" name="message" rows="2" required></textarea>
+        </div>
+        <button class="btn btn-send" type="submit" data-anim="reveal"><span>Send it over</span></button>
+        <p class="form-done h-script" hidden>Thank you &mdash; we&rsquo;ll write back soon.</p>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <hr class="rule rule-footer" data-anim="line" />
+    <div class="shell">
+      <a class="logo logo-footer" href="index.html" aria-label="Mattea Estudio — home">
+        <span class="logo-mark">
+          <span class="logo-tagline">Studio</span>
+          <span class="logo-rule" aria-hidden="true"></span>
+          <span class="logo-word"><strong>MAT</strong>TEA</span>
+        </span>
+      </a>
+    </div>
+  </footer>
+
+</div><!-- /smooth-content -->
+</div><!-- /smooth-wrapper -->
+
+<script type="module" src="/src/project.js"></script>
+</body>
+</html>
