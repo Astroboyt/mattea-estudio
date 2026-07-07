@@ -154,16 +154,18 @@ function init() {
 
   /* ----------------------------------------------------------
      Intro — header + hero, after fonts are ready so SplitText
-     measures the real Playfair metrics
+     measures the real Cabinet Grotesk metrics
      ---------------------------------------------------------- */
   document.fonts.ready.then(() => {
     const heroSplit = new SplitText('.hero-title', { type: 'lines', mask: 'lines' })
     gsap.set('.hero-title', { opacity: 1 })
 
     gsap.timeline({ defaults: { ease: 'power3.out' } })
+      .to('[data-anim="hero-eyebrow"]', { opacity: 1, duration: 0.8 }, 0)
       .from(heroSplit.lines, { yPercent: 110, duration: 1.1, stagger: 0.12 }, 0.15)
       .to('[data-anim="logo"]', { opacity: 1, duration: 0.8 }, 0.3)
       .to('[data-anim="nav"]', { opacity: 1, duration: 0.8, stagger: 0.1 }, 0.45)
+      .to('[data-anim="hero-kicker"]', { opacity: 1, y: 0, duration: 0.9, startAt: { y: 24 } }, 0.6)
       .to('[data-anim="hero-lead"]', { opacity: 1, y: 0, duration: 0.9, startAt: { y: 24 } }, 0.7)
       .to('[data-anim="hero-cta"]', { opacity: 1, y: 0, duration: 0.9, startAt: { y: 24 } }, 0.85)
 

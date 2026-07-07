@@ -6,12 +6,11 @@
    ============================================================ */
 
 :root {
-  --purple: #a259ff;
   --black: #000;
+  --grey: #5c5c5c;
   --white: #fff;
 
   --font-body: "Cabinet Grotesk", "Helvetica Neue", Arial, sans-serif;
-  --font-script: "Playfair Display", Georgia, serif;
 
   /* 12.5% side margin, capped at the 1764px canvas value */
   --margin: clamp(20px, 12.5vw, 220px);
@@ -35,14 +34,14 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   background: var(--white);
-  color: var(--purple);
+  color: var(--black);
   font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.35;
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: var(--purple); color: var(--white); }
+::selection { background: var(--black); color: var(--white); }
 
 img { display: block; width: 100%; height: 100%; object-fit: cover; }
 figure { margin: 0; }
@@ -54,10 +53,9 @@ h1, h2, h3, p { margin: 0; }
   padding-inline: var(--margin);
 }
 
-/* Playfair script headings */
+/* Script headings (Cabinet Grotesk) */
 .h-script {
-  font-family: var(--font-script);
-  font-style: italic;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: var(--text-script);
   line-height: 1.2;
@@ -66,7 +64,7 @@ h1, h2, h3, p { margin: 0; }
 /* Hand-thin rules (the Figma dividers are 1px strokes) */
 .rule {
   border: 0;
-  border-top: 1px solid var(--purple);
+  border-top: 1px solid var(--black);
   margin: 0;
   width: 100%;
 }
@@ -76,16 +74,15 @@ h1, h2, h3, p { margin: 0; }
 }
 
 /* ============================================================
-   Buttons — 1px purple border, Playfair italic label
+   Buttons — 1px black border, Cabinet Grotesk label
    ============================================================ */
 .btn {
   display: inline-flex;
   align-items: center;
   height: 51px;
-  border: 1px solid var(--purple);
-  color: var(--purple);
-  font-family: var(--font-script);
-  font-style: italic;
+  border: 1px solid var(--black);
+  color: var(--black);
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: 20px;
   text-decoration: none;
@@ -94,7 +91,7 @@ h1, h2, h3, p { margin: 0; }
   padding-inline: 24px;
   transition: background-color 0.35s ease, color 0.35s ease;
 }
-.btn:hover, .btn:focus-visible { background: var(--purple); color: var(--white); }
+.btn:hover, .btn:focus-visible { background: var(--black); color: var(--white); }
 .btn:focus-visible { outline: 2px solid var(--black); outline-offset: 3px; }
 
 .btn-hero { width: 279px; justify-content: center; padding-inline: 0; }
@@ -127,29 +124,54 @@ h1, h2, h3, p { margin: 0; }
 }
 .nav-row { display: grid; }
 .nav-row a {
-  color: var(--purple);
+  color: var(--black);
   text-decoration: none;
   padding: 9px 12px 10px;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
-.nav-row a:hover, .nav-row a:focus-visible { background: var(--purple); color: var(--white); outline: none; }
+.nav-row a:hover, .nav-row a:focus-visible { background: var(--black); color: var(--white); outline: none; }
 .nav-row-1 {
   grid-template-columns: 97fr 107fr 108fr;
-  border: 1px solid var(--purple);
+  border: 1px solid var(--black);
 }
-.nav-row-1 a:nth-child(-n + 2) { border-right: 1px solid var(--purple); }
+.nav-row-1 a:nth-child(-n + 2) { border-right: 1px solid var(--black); }
 .nav-row-2 {
   grid-template-columns: 97fr 107fr;
   width: 65.4%; /* 204 / 312 */
-  border-left: 1px solid var(--purple);
-  border-right: 1px solid var(--purple);
-  border-bottom: 1px solid var(--purple);
+  border-left: 1px solid var(--black);
+  border-right: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
 }
-.nav-row-2 a:first-child { border-right: 1px solid var(--purple); }
+.nav-row-2 a:first-child { border-right: 1px solid var(--black); }
 
-.logo { color: var(--purple); display: inline-block; }
+.logo { color: var(--black); display: inline-block; }
 .logo svg { display: block; width: 100%; height: auto; }
-.logo-header { width: clamp(150px, 15vw, 266px); }
+.logo-header { width: clamp(225px, 22.5vw, 399px); }
+
+.logo-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: fit-content;
+  line-height: 1;
+  font-family: var(--font-body);
+}
+.logo-tagline {
+  font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+  font-weight: 400;
+}
+.logo-rule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  margin: 4px 0 6px;
+}
+.logo-word {
+  font-size: clamp(2.625rem, 4.5vw, 4.125rem);
+  font-weight: 400;
+}
+.logo-word strong { font-weight: 700; }
 
 .header-box {
   justify-self: end;
@@ -168,17 +190,33 @@ h1, h2, h3, p { margin: 0; }
   align-items: center;
   text-align: center;
 }
+.hero-eyebrow {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: var(--text-md);
+  margin-bottom: 8px;
+}
 .hero-title {
-  font-family: var(--font-script);
-  font-style: italic;
-  font-weight: 600;
-  font-size: var(--text-hero);
-  line-height: 1.22;
-  max-width: 655px;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 500;
+  font-size: clamp(3rem, 2rem + 4vw, 5.5rem);
+  line-height: 1.1;
+  max-width: 800px;
+}
+.hero-kicker {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.125rem);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 40px;
 }
 .hero-lead {
   max-width: 628px;
-  margin-top: 37px;
+  margin-top: 20px;
+  color: var(--grey);
 }
 .btn-hero { margin-top: 37px; }
 
@@ -223,15 +261,15 @@ h1, h2, h3, p { margin: 0; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--purple);
+  border: 1px solid var(--black);
   background: transparent;
-  color: var(--purple);
+  color: var(--black);
   cursor: pointer;
   border-radius: 0;
   transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
 }
 .carousel-arrow:hover:not(:disabled),
-.carousel-arrow:focus-visible:not(:disabled) { background: var(--purple); color: var(--white); }
+.carousel-arrow:focus-visible:not(:disabled) { background: var(--black); color: var(--white); }
 .carousel-arrow:focus-visible { outline: 2px solid var(--black); outline-offset: 3px; }
 .carousel-arrow:disabled { opacity: 0.3; cursor: default; }
 .carousel-arrow svg { display: block; }
@@ -250,7 +288,7 @@ h1, h2, h3, p { margin: 0; }
   font-weight: 700;
   font-size: var(--text-title);
 }
-.project-body { max-width: 895px; margin-top: -19px; }
+.project-body { max-width: 895px; margin-top: -19px; color: var(--grey); }
 .project-body p + p { margin-top: 1.35em; }
 
 .shell .rule { margin-top: clamp(32px, 2.8vw, 49px); }
@@ -271,12 +309,11 @@ h1, h2, h3, p { margin: 0; }
 .about-heading { display: flex; flex-direction: column; }
 .about-title { font-weight: 400; font-size: var(--text-about); }
 .about-tag {
-  font-family: var(--font-script);
-  font-style: italic;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: 20px;
 }
-.about-body { margin-top: 40px; }
+.about-body { margin-top: 40px; color: var(--grey); }
 .about-body p + p { margin-top: 1.35em; }
 .about-listen { font-weight: 500; }
 .btn-meet { margin-top: 60px; }
@@ -296,25 +333,25 @@ h1, h2, h3, p { margin: 0; }
    Process — Commission a Mural
    ============================================================ */
 .process { padding-top: clamp(24px, 1.9vw, 33px); }
-.process-lead { margin-top: 13px; }
+.process-lead { margin-top: 13px; color: var(--grey); }
 
 .process-grid {
   margin-top: clamp(36px, 3vw, 54px);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-block: 1px solid var(--purple);
+  border-block: 1px solid var(--black);
   min-height: 365px;
 }
 .process-col {
-  border-right: 1px solid var(--purple);
+  border-right: 1px solid var(--black);
   padding: 28px clamp(18px, 1.8vw, 30px) 36px;
 }
-.process-col:first-child { border-left: 1px solid var(--purple); }
+.process-col:first-child { border-left: 1px solid var(--black); }
 .process-icon {
   height: 104px;
   display: flex;
   align-items: center;
-  color: var(--purple);
+  color: var(--black);
 }
 .process-icon svg { max-width: 100%; height: auto; }
 .process-icon-rotated svg { transform: rotate(90deg); width: 88px; }
@@ -323,7 +360,7 @@ h1, h2, h3, p { margin: 0; }
   font-size: var(--text-h3);
   margin-top: 24px;
 }
-.process-body { margin-top: 20px; max-width: 384px; }
+.process-body { margin-top: 20px; max-width: 384px; color: var(--grey); }
 
 /* ============================================================
    Contact — Write to Us
@@ -333,12 +370,13 @@ h1, h2, h3, p { margin: 0; }
   display: flex;
   align-items: center;
   gap: clamp(24px, 2.3vw, 41px);
-  color: var(--purple);
+  color: var(--black);
 }
 .section-icon { display: inline-flex; flex: none; }
 .contact-lead {
   font-size: var(--text-md);
   margin-top: 16px;
+  color: var(--grey);
 }
 
 .lead-form {
@@ -350,7 +388,7 @@ h1, h2, h3, p { margin: 0; }
   flex-direction: column;
   justify-content: flex-end;
   min-height: 72px;
-  border-bottom: 1px solid var(--purple);
+  border-bottom: 1px solid var(--black);
 }
 .field label {
   font-size: 13px;
@@ -364,13 +402,13 @@ h1, h2, h3, p { margin: 0; }
   background: transparent;
   font-family: var(--font-body);
   font-size: 20px;
-  color: var(--purple);
+  color: var(--black);
   padding: 6px 0 14px;
   outline: none;
   width: 100%;
   border-radius: 0;
 }
-.field input:focus-visible { box-shadow: 0 2px 0 0 var(--purple); }
+.field input:focus-visible { box-shadow: 0 2px 0 0 var(--black); }
 
 .field-message {
   border-bottom: 0;
@@ -379,12 +417,12 @@ h1, h2, h3, p { margin: 0; }
 }
 .field-message label { margin-bottom: 10px; }
 .field-message textarea {
-  border: 1px solid var(--purple);
+  border: 1px solid var(--black);
   min-height: 84px;
   padding: 12px 16px;
   resize: vertical;
 }
-.field-message textarea:focus-visible { box-shadow: inset 0 0 0 1px var(--purple); }
+.field-message textarea:focus-visible { box-shadow: inset 0 0 0 1px var(--black); }
 
 .btn-send { margin-top: 40px; }
 .form-done { margin-top: 40px; }
@@ -394,8 +432,8 @@ h1, h2, h3, p { margin: 0; }
    ============================================================ */
 .faq { padding-top: clamp(40px, 3.4vw, 60px); }
 .faq-list { margin-top: clamp(32px, 2.8vw, 49px); }
-.faq-item { border-top: 1px solid var(--purple); }
-.faq-item:last-child { border-bottom: 1px solid var(--purple); }
+.faq-item { border-top: 1px solid var(--black); }
+.faq-item:last-child { border-bottom: 1px solid var(--black); }
 .faq-q {
   display: flex;
   align-items: center;
@@ -413,7 +451,7 @@ h1, h2, h3, p { margin: 0; }
   color: var(--black);
   text-align: left;
 }
-.faq-q:focus-visible { outline: 2px solid var(--purple); outline-offset: -2px; }
+.faq-q:focus-visible { outline: 2px solid var(--black); outline-offset: -2px; }
 .faq-plus {
   position: relative;
   width: 16px;
@@ -427,7 +465,7 @@ h1, h2, h3, p { margin: 0; }
   inset: 50% auto auto 0;
   width: 100%;
   height: 1px;
-  background: var(--purple);
+  background: var(--black);
 }
 .faq-plus::after { transform: rotate(90deg); }
 .faq-q[aria-expanded="true"] .faq-plus { transform: rotate(45deg); }
@@ -447,13 +485,12 @@ h1, h2, h3, p { margin: 0; }
 .stories { padding-top: 0; }
 .stories .shell .rule { margin-top: 0; }
 .stories-title {
-  font-family: var(--font-script);
-  font-style: italic;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: var(--text-title);
   padding-top: clamp(32px, 2.7vw, 48px);
 }
-.stories-lead { margin-top: 24px; font-weight: 500; }
+.stories-lead { margin-top: 24px; font-weight: 500; color: var(--grey); }
 
 .stories-pin {
   margin-top: clamp(40px, 3.8vw, 67px);
@@ -498,7 +535,7 @@ h1, h2, h3, p { margin: 0; }
     grid-template-columns: 1fr auto;
     row-gap: 20px;
   }
-  .logo-header { grid-column: 2; grid-row: 1; width: 170px; }
+  .logo-header { grid-column: 2; grid-row: 1; width: 255px; }
   .site-nav { grid-column: 1; grid-row: 1; }
   .header-box { display: none; }
 
@@ -507,7 +544,7 @@ h1, h2, h3, p { margin: 0; }
 
   .process-grid { grid-template-columns: 1fr; min-height: 0; }
   .process-col { border-right: 0; border-left: 0 !important; }
-  .process-col + .process-col { border-top: 1px solid var(--purple); }
+  .process-col + .process-col { border-top: 1px solid var(--black); }
 
   .gallery-row { grid-template-columns: 1fr 1fr; }
   .gallery-row figure:last-child { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
@@ -528,6 +565,8 @@ h1, h2, h3, p { margin: 0; }
 .js [data-anim="field"],
 .js [data-anim="faq-item"],
 .js [data-anim="icon"],
+.js [data-anim="hero-eyebrow"],
+.js [data-anim="hero-kicker"],
 .js [data-anim="hero-lead"],
 .js [data-anim="hero-cta"],
 .js [data-anim="nav"],
@@ -557,7 +596,7 @@ h1, h2, h3, p { margin: 0; }
 /* Title + intro */
 .proj-head { display: flex; flex-direction: column; align-items: flex-start; }
 .proj-back {
-  color: var(--purple);
+  color: var(--black);
   text-decoration: none;
   font-size: 16px;
   margin-bottom: clamp(28px, 3vw, 48px);
@@ -566,8 +605,7 @@ h1, h2, h3, p { margin: 0; }
 }
 .proj-back:hover, .proj-back:focus-visible { opacity: 1; text-decoration: underline; }
 .proj-title {
-  font-family: var(--font-script);
-  font-style: italic;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: var(--text-hero);
   line-height: 1.15;
@@ -576,6 +614,7 @@ h1, h2, h3, p { margin: 0; }
 .proj-intro {
   max-width: 895px;
   margin-top: clamp(20px, 2vw, 32px);
+  color: var(--grey);
 }
 
 /* Hero image — near full-bleed (27px margins in Figma → ~edge to edge) */
@@ -657,7 +696,7 @@ h1, h2, h3, p { margin: 0; }
 /* Project page image placeholders (until real Figma URLs are wired) */
 .img-reveal img[data-figma-node] {
   background:
-    repeating-linear-gradient(45deg, rgba(162,89,255,0.06) 0 12px, rgba(162,89,255,0.11) 12px 24px);
+    repeating-linear-gradient(45deg, rgba(0,0,0,0.06) 0 12px, rgba(0,0,0,0.11) 12px 24px);
   position: relative;
 }
 .img-reveal:has(img[data-figma-node])::after {
@@ -667,9 +706,8 @@ h1, h2, h3, p { margin: 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--purple);
-  font-family: var(--font-script);
-  font-style: italic;
+  color: var(--black);
+  font-family: var(--font-body);
   font-size: clamp(14px, 1.4vw, 20px);
   opacity: 0.55;
   pointer-events: none;
