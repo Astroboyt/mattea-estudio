@@ -15,113 +15,222 @@
 <div id="smooth-content">
 
   <!-- ============ HEADER ============ -->
-  <header class="site-header">
-    <div class="shell header-grid">
-
-      <nav class="site-nav" aria-label="Main navigation" data-anim="nav">
-        <div class="nav-row nav-row-1">
-          <a href="gallery.html">Gallery</a>
-          <a href="about.html">Design</a>
-          <a href="shop.html">Shop</a>
-        </div>
-        <div class="nav-row nav-row-2">
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
-        </div>
-      </nav>
-
-      <a class="logo logo-header" href="index.html" aria-label="Mattea Estudio — home" data-anim="logo">
-        <span class="logo-mark">
-          <span class="logo-tagline">Studio</span>
-          <span class="logo-rule" aria-hidden="true"></span>
-          <span class="logo-word"><strong>MAT</strong>TEA</span>
-        </span>
-      </a>
-
-      <!-- Empty bordered box from the Figma header — no content defined in the file yet -->
-      <div class="header-box" data-anim="nav" aria-hidden="true"></div>
-    </div>
-  </header>
+  <!--#include partials/header.html-->
 
   <main id="top">
 
     <!-- ============ GALLERY ============ -->
     <section class="gallery-page">
-      <h1 class="h-script" data-anim="words">Gallery</h1>
-      <p class="gallery-lead" data-anim="reveal">A collection of murals, each one grown from a conversation. Hover over a piece to see the idea behind it.</p>
+      <h1 class="h-script" data-anim="words">Spaces That Speak</h1>
 
       <hr class="rule" data-anim="line" />
 
       <div class="gallery-grid">
-        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0">
-          <img src="/assets/hero.jpg" alt="Mural placeholder — Every Wall Has a Story" />
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Barcelona High School">
+          <img class="obj-pos-left" src="/assets/gallery/gallery-01.jpg" alt="Barcelona High School mural detail" />
           <figcaption class="gallery-card">
-            <span class="gallery-card-label">The Idea</span>
-            <p>Every wall has a story&mdash;this one began with a conversation about home.</p>
+            <span class="gallery-card-label">Barcelona High School</span>
+            <p>A massive, hyper-focused eye splitting a face of warm yellow and cool blue. It&rsquo;s all about turning the spotlight inward and taking a good look at yourself.</p>
           </figcaption>
         </figure>
 
-        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0">
-          <img src="/assets/gallery-1.jpg" alt="Mural placeholder" />
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Barcelona High School">
+          <img src="/assets/gallery/gallery-02.jpg" alt="Barcelona High School mural detail" />
           <figcaption class="gallery-card">
-            <span class="gallery-card-label">The Idea</span>
-            <p>A bold botanical scene bringing life to a quiet courtyard.</p>
+            <span class="gallery-card-label">Barcelona High School</span>
+            <p>A bold, blocky profile in bright primary colors and cool greys. The sharp side-gaze perfectly catches that mood of being completely lost in your own thoughts.</p>
           </figcaption>
         </figure>
 
-        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0">
-          <img src="/assets/gallery-2.jpg" alt="Mural placeholder" />
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Barcelona High School">
+          <img src="/assets/gallery/gallery-03.jpg" alt="Barcelona High School mural detail" />
           <figcaption class="gallery-card">
-            <span class="gallery-card-label">The Idea</span>
-            <p>Layered colour and motion, inspired by the rhythm of the city.</p>
+            <span class="gallery-card-label">Barcelona High School</span>
+            <p>We created a lively, colourful ecosystem where different elements perfectly blend together to create a true sense of community.</p>
           </figcaption>
         </figure>
 
-        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0">
-          <img src="/assets/gallery-3.jpg" alt="Mural placeholder" />
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Office Space, Barcelona">
+          <img src="/assets/gallery/gallery-04.jpg" alt="Office space mural, Barcelona" loading="lazy" decoding="async" />
           <figcaption class="gallery-card">
-            <span class="gallery-card-label">The Idea</span>
-            <p>A quiet portrait of connection, painted for a family home.</p>
+            <span class="gallery-card-label">Office Space, Barcelona</span>
+            <p>Commissioned office space for welcoming clients. Personalised to represent the motives to set an inviting and warm space.</p>
           </figcaption>
         </figure>
 
-        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0">
-          <img src="/assets/bhs-hero.jpg" alt="Mural placeholder — Barcelona High School" />
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — International American School, Barcelona">
+          <img src="/assets/gallery/gallery-05.jpg" alt="International American School mural detail, Barcelona" loading="lazy" decoding="async" />
           <figcaption class="gallery-card">
-            <span class="gallery-card-label">The Idea</span>
-            <p>Ten values, one wall&mdash;built with the students who live it every day.</p>
+            <span class="gallery-card-label">International American School, Barcelona</span>
+            <p>Details from part of a bigger mural shown in the gallery. A beautiful Strelitzia, known as the Bird of Paradise.</p>
           </figcaption>
         </figure>
 
-        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0">
-          <img src="/assets/bhs-full.jpg" alt="Mural placeholder" />
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Custom Commission, Barcelona">
+          <img src="/assets/gallery/gallery-06.jpg" alt="Custom commission mural, Barcelona" loading="lazy" decoding="async" />
           <figcaption class="gallery-card">
-            <span class="gallery-card-label">The Idea</span>
-            <p>A playground transformed into a canvas of shared imagination.</p>
+            <span class="gallery-card-label">Custom Commission, Barcelona</span>
+            <p>Painted to give off a super high-energy, electric vibe that instantly wakes up the room and gets you inspired to create.</p>
           </figcaption>
         </figure>
 
-        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0">
-          <img src="/assets/stories-tall-1.jpg" alt="Mural placeholder" />
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Kids Bedroom, Dubrovnik, Croatia">
+          <img src="/assets/gallery/gallery-07.jpg" alt="Kids bedroom mural, Dubrovnik, Croatia" loading="lazy" decoding="async" />
           <figcaption class="gallery-card">
-            <span class="gallery-card-label">The Idea</span>
-            <p>Faces and forms drawn from local folklore and memory.</p>
+            <span class="gallery-card-label">Kids Bedroom, Dubrovnik, Croatia</span>
+            <p>Custom underwater Spongebob mural to add a playful and cheerful environment. The jellyfish lights add extra ambience to the room&rsquo;s setting.</p>
           </figcaption>
         </figure>
 
-        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0">
-          <img src="/assets/stories-tall-2.jpg" alt="Mural placeholder" />
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Art Shop, Phuket, Thailand">
+          <img src="/assets/gallery/gallery-08.jpg" alt="Art shop mural, Phuket, Thailand" loading="lazy" decoding="async" />
           <figcaption class="gallery-card">
-            <span class="gallery-card-label">The Idea</span>
-            <p>An abstract meditation on growth, painted floor to ceiling.</p>
+            <span class="gallery-card-label">Art Shop, Phuket, Thailand</span>
+            <p>East-Asian dragon painted for Chinese New Year. Packs a massive punch of fierce, powerful energy.</p>
           </figcaption>
         </figure>
 
-        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0">
-          <img src="/assets/stories-wide.jpg" alt="Mural placeholder" />
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Juice Bar, Barceloneta, Barcelona">
+          <img src="/assets/gallery/gallery-09.jpg" alt="Juice bar mural, Barceloneta, Barcelona" loading="lazy" decoding="async" />
           <figcaption class="gallery-card">
-            <span class="gallery-card-label">The Idea</span>
-            <p>Where community meets colour&mdash;a mural made for gathering.</p>
+            <span class="gallery-card-label">Juice Bar, Barceloneta, Barcelona</span>
+            <p>Giant gorilla portrait surrounded by fruits, giving off a colourful, immersive vibe as you enter the space.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Concept Design">
+          <img src="/assets/gallery/gallery-10.jpg" alt="Concept design for a corporate office block" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Concept Design</span>
+            <p>Corporate office block outside area &mdash; upcoming project.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Dionysus Portrait, Northern Croatia">
+          <img src="/assets/gallery/gallery-11.jpg" alt="Dionysus portrait mural, Northern Croatia" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Dionysus Portrait, Northern Croatia</span>
+            <p>The Greek god of wine-making, believed to bring good luck for each harvest.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Concept Design">
+          <img src="/assets/gallery/gallery-12.jpg" alt="Concept design for an urban cafe mural" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Concept Design</span>
+            <p>Mural for an urban cafe &mdash; upcoming project.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Nelson Mandela Portrait, Gracia, Barcelona">
+          <img src="/assets/gallery/gallery-13.jpg" alt="Nelson Mandela portrait mural, Gracia, Barcelona" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Nelson Mandela Portrait, Gracia, Barcelona</span>
+            <p>Painted next to the main entrance of an international high school to represent strength and equality.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Art-Haus Creative Studio, Gracia, Barcelona">
+          <img src="/assets/gallery/gallery-14.jpg" alt="Art-Haus Creative Studio mural, Gracia, Barcelona" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Art-Haus Creative Studio, Gracia, Barcelona</span>
+            <p>Contemporary bio-abstract urban mural painted for a creative studio on a commercial rolling shutter.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Fiesta Major, Gracia, Barcelona">
+          <img src="/assets/gallery/gallery-15.jpg" alt="Fiesta Major mural, Gracia, Barcelona" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Fiesta Major, Gracia, Barcelona</span>
+            <p>Steampunk, industrial setup, giving the shutter a very mechanical, retro-futuristic look.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Barcelona, Poblenou">
+          <img src="/assets/gallery/gallery-16.jpg" alt="Mural in Poblenou, Barcelona" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Barcelona, Poblenou</span>
+            <p>Painted for a cultural hub in the heart of Poblenou, this mural uses bold, stained-glass shapes to show a woman&rsquo;s profile, giving off a peaceful but strong vibe.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Gracia, Barcelona">
+          <img src="/assets/gallery/gallery-17.jpg" alt="Alice in Wonderland Maze mural, Gracia, Barcelona" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Gracia, Barcelona</span>
+            <p>The &ldquo;Alice in Wonderland Maze,&rdquo; painted in collaboration with Carrer Mozart for the annual Fiesta Major in the heart of Gracia.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Juice Bar, Barceloneta">
+          <img src="/assets/gallery/gallery-18.jpg" alt="Juice bar mural, Barceloneta" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Juice Bar, Barceloneta</span>
+            <p>Giving this unique fresh juice bar colour and life, just like their variety of tropical drinks and snacks.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — International American School, Barcelona">
+          <img src="/assets/gallery/gallery-19.jpg" alt="International American School mural, Barcelona" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">International American School, Barcelona</span>
+            <p>A vibrant journey up a mountain path that represents pure tenacity &mdash; designed to inspire students to tackle life&rsquo;s twists, turns and uphill climbs with total courage.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — International American School, Barcelona">
+          <img src="/assets/gallery/gallery-20.jpg" alt="Flexibility mural, International American School, Barcelona" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">International American School, Barcelona</span>
+            <p>&ldquo;Flexibility&rdquo; &mdash; a fun reminder to stay fluid and roll with the changes, adapting beautifully and keeping your balance whenever life twists and turns.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — School Pillar, Barcelona">
+          <img src="/assets/gallery/gallery-21.jpg" alt="School pillar mural, Barcelona" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">School Pillar, Barcelona</span>
+            <p>This mural uses an underwater world to celebrate the community and diversity that makes up an international school.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Barcelona High School">
+          <img src="/assets/gallery/gallery-22.jpg" alt="Innovation mural, Barcelona High School" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Barcelona High School</span>
+            <p>&ldquo;Innovation&rdquo; &mdash; highlights how students from all different backgrounds connect their unique perspectives, think outside the box, and collaborate to invent the future.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Barcelona High School">
+          <img src="/assets/gallery/gallery-23.jpg" alt="Empathy mural, Barcelona High School" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Barcelona High School</span>
+            <p>Taking the phrase &ldquo;walk a mile in someone else&rsquo;s shoes&rdquo; literally, this piece is about empathy &mdash; a colourful reminder for the school community to celebrate their different backgrounds.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Concept Design">
+          <img src="/assets/gallery/gallery-24.jpg" alt="Concept design for a school playground courtyard" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Concept Design</span>
+            <p>Courtyard wall for a school playground &mdash; upcoming project.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Creative Studio, Barcelona">
+          <img src="/assets/gallery/gallery-25.jpg" alt="Creative studio mural, Barcelona" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Creative Studio, Barcelona</span>
+            <p>Created to feel cozy and immersive at the same time, transforming a standard structural pillar into an inspiring focal point.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item img-reveal" data-anim="img" tabindex="0" role="button" aria-label="View full image — Dubrovnik, Croatia">
+          <img src="/assets/gallery/gallery-26.jpg" alt="Kids bedroom mural, Dubrovnik, Croatia" loading="lazy" decoding="async" />
+          <figcaption class="gallery-card">
+            <span class="gallery-card-label">Dubrovnik, Croatia</span>
+            <p>Colour and playful Disney wall for a kids&rsquo; bedroom.</p>
           </figcaption>
         </figure>
       </div>
@@ -130,21 +239,15 @@
   </main>
 
   <!-- ============ FOOTER ============ -->
-  <footer class="site-footer">
-    <hr class="rule rule-footer" data-anim="line" />
-    <div class="shell">
-      <a class="logo logo-footer" href="index.html" aria-label="Mattea Estudio — home">
-        <span class="logo-mark">
-          <span class="logo-tagline">Studio</span>
-          <span class="logo-rule" aria-hidden="true"></span>
-          <span class="logo-word"><strong>MAT</strong>TEA</span>
-        </span>
-      </a>
-    </div>
-  </footer>
+  <!--#include partials/footer.html-->
 
 </div><!-- /smooth-content -->
 </div><!-- /smooth-wrapper -->
+
+<div class="lightbox" data-lightbox>
+  <button class="lightbox-close" type="button" aria-label="Close full image">&times;</button>
+  <img class="lightbox-img" src="" alt="" />
+</div>
 
 <script type="module" src="/src/project.js"></script>
 </body>

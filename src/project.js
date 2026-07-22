@@ -6,6 +6,7 @@ import { SplitText } from 'gsap/SplitText'
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText)
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+let smoother
 
 /* ------------------------------------------------------------
    Lead form — front-end only for now
@@ -91,6 +92,52 @@ if (strip) {
 }
 
 /* ------------------------------------------------------------
+   Gallery — click (or Enter/Space) opens the full image
+   ------------------------------------------------------------ */
+const galleryItems = document.querySelectorAll('.gallery-item')
+const lightbox = document.querySelector('[data-lightbox]')
+if (galleryItems.length && lightbox) {
+  const lightboxImg = lightbox.querySelector('.lightbox-img')
+  const closeBtn = lightbox.querySelector('.lightbox-close')
+  let lastFocused = null
+
+  const openLightbox = (item) => {
+    const img = item.querySelector('img')
+    lightboxImg.src = img.src
+    lightboxImg.alt = img.alt
+    lastFocused = item
+    lightbox.classList.add('is-open')
+    document.body.classList.add('lightbox-open')
+    if (smoother) smoother.paused(true)
+    closeBtn.focus()
+  }
+  const closeLightbox = () => {
+    lightbox.classList.remove('is-open')
+    document.body.classList.remove('lightbox-open')
+    lightboxImg.src = ''
+    if (smoother) smoother.paused(false)
+    if (lastFocused) lastFocused.focus()
+  }
+
+  galleryItems.forEach((item) => {
+    item.addEventListener('click', () => openLightbox(item))
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        openLightbox(item)
+      }
+    })
+  })
+  closeBtn.addEventListener('click', closeLightbox)
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox()
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox()
+  })
+}
+
+/* ------------------------------------------------------------
    Motion — bail out politely if reduced
    ------------------------------------------------------------ */
 if (reduceMotion) {
@@ -100,7 +147,7 @@ if (reduceMotion) {
 }
 
 function init() {
-  const smoother = ScrollSmoother.create({
+  smoother = ScrollSmoother.create({
     wrapper: '#smooth-wrapper',
     content: '#smooth-content',
     smooth: 1.2,

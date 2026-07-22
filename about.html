@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — Mattea Estudio</title>
-  <meta name="description" content="Matt &amp; Tea are a creative duo based in Barcelona, combining illustration, graphic design and large-scale painting to create murals that feel personal to every client and every space." />
+  <title>The Studio — Mattea Estudio</title>
+  <meta name="description" content="A look inside the Mattea Estudio process — murals in progress, from first sketch to finished wall." />
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
   <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700&display=swap" rel="stylesheet" />
   <script>document.documentElement.classList.add("js")</script>
@@ -15,50 +15,45 @@
 <div id="smooth-content">
 
   <!-- ============ HEADER ============ -->
-  <header class="site-header">
-    <div class="shell header-grid">
-
-      <nav class="site-nav" aria-label="Main navigation" data-anim="nav">
-        <div class="nav-row nav-row-1">
-          <a href="gallery.html">Gallery</a>
-          <a href="about.html">Design</a>
-          <a href="shop.html">Shop</a>
-        </div>
-        <div class="nav-row nav-row-2">
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
-        </div>
-      </nav>
-
-      <a class="logo logo-header" href="index.html" aria-label="Mattea Estudio — home" data-anim="logo">
-        <span class="logo-mark">
-          <span class="logo-tagline">Studio</span>
-          <span class="logo-rule" aria-hidden="true"></span>
-          <span class="logo-word"><strong>MAT</strong>TEA</span>
-        </span>
-      </a>
-
-      <!-- Empty bordered box from the Figma header — no content defined in the file yet -->
-      <div class="header-box" data-anim="nav" aria-hidden="true"></div>
-    </div>
-  </header>
+  <!--#include partials/header.html-->
 
   <main id="top">
 
-    <!-- ============ ABOUT ============ -->
-    <section class="about-page shell">
-      <figure class="about-photo img-reveal" data-anim="img">
-        <img src="/assets/about.jpg" alt="Matt and Tea working together on a mural" data-parallax="40" />
+    <!-- ============ STUDIO ============ -->
+    <section class="studio-page">
+      <h1 class="h-script" data-anim="words">the studio</h1>
+
+      <hr class="rule" data-anim="line" />
+
+      <figure class="studio-hero img-reveal" data-anim="img">
+        <img src="/assets/studio/studio-hero.jpg" alt="Painting a large monstera leaf mural in the studio" />
       </figure>
-      <div class="about-text">
-        <div class="about-heading" data-anim="reveal">
-          <h1 class="about-title">We&rsquo;re Matt &amp;Tea</h1>
-          <p class="about-tag">Artists. Designers. Storytellers.</p>
-        </div>
-        <div class="about-body" data-anim="reveal">
-          <p>Welcome to Mattea Production! We are Mat and Thea, partners in both life and art. Together, our styles merge to perfectly balance technical street art with creative playfulness. Our true specialty is custom, tailor-made art. We don&rsquo;t just paint random designs; we focus on creating concepts drawn directly from your stories. Whether it is a mural for a school, a business, or a custom canvas painting, our goal is to take your vision and bring it to life in the real world. We are here to help you elevate your space and make it completely unforgettable.</p>
-          <p>Our journey started when we met and realized that blending our completely different backgrounds created something really special. Matt is a street artist from South Africa with 15 years of experience working on diverse mural projects, bringing the technical skills and raw energy. Tea is an art teacher and the founder of a creative studio in Barcelona, bringing the playfulness, structure, and imagination.</p>
-        </div>
+
+      <div class="studio-duo">
+        <figure class="img-reveal" data-anim="img">
+          <img src="/assets/studio/studio-duo-1.jpg" alt="Mural in progress, working from a ladder" loading="lazy" decoding="async" />
+        </figure>
+        <figure class="img-reveal" data-anim="img">
+          <img src="/assets/studio/studio-duo-2.jpg" alt="Detail of a colourful abstract mural" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+
+      <div class="studio-grid">
+        <figure class="img-reveal" data-anim="img">
+          <img src="/assets/studio/studio-grid-1.jpg" alt="Studio team painting a bold graphic mural" loading="lazy" decoding="async" />
+        </figure>
+        <figure class="img-reveal" data-anim="img">
+          <img src="/assets/studio/studio-grid-2.jpg" alt="Colourful geometric mural installation" loading="lazy" decoding="async" />
+        </figure>
+        <figure class="img-reveal" data-anim="img">
+          <img src="/assets/studio/studio-grid-3.jpg" alt="Green portrait mural painted outdoors" loading="lazy" decoding="async" />
+        </figure>
+        <figure class="img-reveal" data-anim="img">
+          <img src="/assets/studio/studio-grid-4.jpg" alt="Detail of a textured mural pattern" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+
+      <div class="studio-cta">
         <a class="btn btn-meet" href="contact.html" data-anim="reveal">
           <span>Get in touch</span>
           <svg class="icon-arrow" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -71,18 +66,7 @@
   </main>
 
   <!-- ============ FOOTER ============ -->
-  <footer class="site-footer">
-    <hr class="rule rule-footer" data-anim="line" />
-    <div class="shell">
-      <a class="logo logo-footer" href="index.html" aria-label="Mattea Estudio — home">
-        <span class="logo-mark">
-          <span class="logo-tagline">Studio</span>
-          <span class="logo-rule" aria-hidden="true"></span>
-          <span class="logo-word"><strong>MAT</strong>TEA</span>
-        </span>
-      </a>
-    </div>
-  </footer>
+  <!--#include partials/footer.html-->
 
 </div><!-- /smooth-content -->
 </div><!-- /smooth-wrapper -->

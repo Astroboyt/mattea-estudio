@@ -13,6 +13,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 document.querySelectorAll('.faq-item').forEach((item) => {
   const q = item.querySelector('.faq-q')
   const a = item.querySelector('.faq-a')
+  if (!q || !a) return
   q.addEventListener('click', () => {
     const open = q.getAttribute('aria-expanded') === 'true'
     q.setAttribute('aria-expanded', String(!open))
@@ -153,21 +154,29 @@ function init() {
   })
 
   /* ----------------------------------------------------------
-     Intro — header + hero, after fonts are ready so SplitText
-     measures the real Cabinet Grotesk metrics
+     Intro — header + hero
+     Nav/logo/hero copy don't depend on font metrics, so they run
+     immediately rather than waiting on the webfont request.
      ---------------------------------------------------------- */
-  document.fonts.ready.then(() => {
+  gsap.timeline({ defaults: { ease: 'power3.out' } })
+    .to('[data-anim="hero-eyebrow"]', { opacity: 1, duration: 0.8 }, 0)
+    .to('[data-anim="logo"]', { opacity: 1, duration: 0.8 }, 0.3)
+    .to('[data-anim="nav"]', { opacity: 1, duration: 0.8, stagger: 0.1 }, 0.45)
+    .to('[data-anim="hero-kicker"]', { opacity: 1, y: 0, duration: 0.9, startAt: { y: 24 } }, 0.6)
+    .to('[data-anim="hero-lead"]', { opacity: 1, y: 0, duration: 0.9, startAt: { y: 24 } }, 0.7)
+    .to('[data-anim="hero-cta"]', { opacity: 1, y: 0, duration: 0.9, startAt: { y: 24 } }, 0.85)
+
+  /* SplitText genuinely needs real font metrics, but race the webfont
+     request against a timeout so a slow/blocked font CDN can't leave
+     the hero title (or any script heading) permanently invisible */
+  const fontsReady = Promise.race([
+    document.fonts.ready,
+    new Promise((resolve) => setTimeout(resolve, 2000)),
+  ])
+  fontsReady.then(() => {
     const heroSplit = new SplitText('.hero-title', { type: 'lines', mask: 'lines' })
     gsap.set('.hero-title', { opacity: 1 })
-
-    gsap.timeline({ defaults: { ease: 'power3.out' } })
-      .to('[data-anim="hero-eyebrow"]', { opacity: 1, duration: 0.8 }, 0)
-      .from(heroSplit.lines, { yPercent: 110, duration: 1.1, stagger: 0.12 }, 0.15)
-      .to('[data-anim="logo"]', { opacity: 1, duration: 0.8 }, 0.3)
-      .to('[data-anim="nav"]', { opacity: 1, duration: 0.8, stagger: 0.1 }, 0.45)
-      .to('[data-anim="hero-kicker"]', { opacity: 1, y: 0, duration: 0.9, startAt: { y: 24 } }, 0.6)
-      .to('[data-anim="hero-lead"]', { opacity: 1, y: 0, duration: 0.9, startAt: { y: 24 } }, 0.7)
-      .to('[data-anim="hero-cta"]', { opacity: 1, y: 0, duration: 0.9, startAt: { y: 24 } }, 0.85)
+    gsap.from(heroSplit.lines, { yPercent: 110, duration: 1.1, stagger: 0.12, ease: 'power3.out', delay: 0.15 })
 
     /* Script headings — word-by-word rise */
     document.querySelectorAll('[data-anim="words"]').forEach((el) => {
