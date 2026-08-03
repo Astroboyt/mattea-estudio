@@ -162,8 +162,7 @@ function init() {
     .to('[data-anim="hero-eyebrow"]', { opacity: 1, duration: 0.8 }, 0)
     .to('[data-anim="logo"]', { opacity: 1, duration: 0.8 }, 0.3)
     .to('[data-anim="nav"]', { opacity: 1, duration: 0.8, stagger: 0.1 }, 0.45)
-    .to('[data-anim="hero-kicker"]', { opacity: 1, y: 0, duration: 0.9, startAt: { y: 24 } }, 0.6)
-    .to('[data-anim="hero-lead"]', { opacity: 1, y: 0, duration: 0.9, startAt: { y: 24 } }, 0.7)
+    .to('[data-anim="hero-lead"]', { opacity: 1, y: 0, duration: 0.9, startAt: { y: 24 } }, 0.6)
     .to('[data-anim="hero-cta"]', { opacity: 1, y: 0, duration: 0.9, startAt: { y: 24 } }, 0.85)
 
   /* SplitText genuinely needs real font metrics, but race the webfont
