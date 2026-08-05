@@ -8,6 +8,29 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText)
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 /* ------------------------------------------------------------
+   Mobile menu toggle — runs regardless of motion preference
+   ------------------------------------------------------------ */
+const menuToggle = document.querySelector('.menu-toggle')
+const mobileNav = document.querySelector('.mobile-nav')
+if (menuToggle && mobileNav) {
+  const closeMenu = () => {
+    menuToggle.setAttribute('aria-expanded', 'false')
+    mobileNav.classList.remove('is-open')
+    document.body.classList.remove('menu-open')
+  }
+  menuToggle.addEventListener('click', () => {
+    const open = menuToggle.getAttribute('aria-expanded') === 'true'
+    menuToggle.setAttribute('aria-expanded', String(!open))
+    mobileNav.classList.toggle('is-open', !open)
+    document.body.classList.toggle('menu-open', !open)
+  })
+  mobileNav.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu))
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu()
+  })
+}
+
+/* ------------------------------------------------------------
    FAQ accordion — runs regardless of motion preference
    ------------------------------------------------------------ */
 document.querySelectorAll('.faq-item').forEach((item) => {
@@ -138,7 +161,7 @@ function init() {
     content: '#smooth-content',
     smooth: 1.2,
     effects: false,
-    normalizeScroll: true,
+    normalizeScroll: { allowNestedScroll: true },
   })
 
   /* Anchor links through the smoother */

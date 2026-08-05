@@ -191,6 +191,73 @@ h1, h2, h3, p { margin: 0; }
   outline: none;
 }
 
+/* Mobile menu toggle + overlay — hamburger shown only on phones (≤640px) */
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--black);
+  background: transparent;
+  cursor: pointer;
+  flex: none;
+}
+.menu-toggle-bars,
+.menu-toggle-bars::before,
+.menu-toggle-bars::after {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--black);
+  transition: transform 0.25s ease, opacity 0.25s ease, background-color 0.25s ease;
+}
+.menu-toggle-bars { position: relative; }
+.menu-toggle-bars::before,
+.menu-toggle-bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+.menu-toggle-bars::before { top: -6px; }
+.menu-toggle-bars::after { top: 6px; }
+.menu-toggle[aria-expanded="true"] .menu-toggle-bars { background: transparent; }
+.menu-toggle[aria-expanded="true"] .menu-toggle-bars::before { top: 0; transform: rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-toggle-bars::after { top: 0; transform: rotate(-45deg); }
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: var(--white);
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px clamp(24px, 8vw, 48px);
+}
+.mobile-nav.is-open { display: flex; }
+.mobile-nav nav { display: flex; flex-direction: column; }
+.mobile-nav nav a {
+  font-family: var(--font-body);
+  font-size: clamp(30px, 9vw, 44px);
+  font-weight: 500;
+  color: var(--black);
+  text-decoration: none;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--black);
+}
+.mobile-nav nav a:first-child { border-top: 1px solid var(--black); }
+.mobile-nav-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+  color: var(--black);
+  text-decoration: none;
+  font-size: 18px;
+}
+body.menu-open { overflow: hidden; }
+
 /* ============================================================
    Hero
    ============================================================ */
@@ -628,12 +695,20 @@ h1, h2, h3, p { margin: 0; }
    ============================================================ */
 @media (max-width: 900px) {
   .header-grid {
-    grid-template-columns: 1fr auto;
-    row-gap: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
   }
-  .logo-header { grid-column: 2; grid-row: 1; width: 255px; }
-  .site-nav { grid-column: 1; grid-row: 1; }
-  .header-box { grid-column: 1 / -1; grid-row: 2; justify-self: center; }
+  .logo-header { width: clamp(180px, 32vw, 255px); }
+  .site-nav, .header-box { display: none; }
+  .menu-toggle {
+    display: inline-flex;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
   .about { grid-template-columns: 1fr; row-gap: 40px; }
   .about-photo { max-width: 480px; aspect-ratio: 427 / 481; }
@@ -647,25 +722,24 @@ h1, h2, h3, p { margin: 0; }
 }
 
 @media (max-width: 640px) {
-  .header-grid {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    row-gap: 24px;
-  }
-  .logo-header { grid-column: 1; grid-row: 1; width: clamp(180px, 55vw, 260px); }
-  .logo-mark { align-items: center; }
-  .site-nav {
-    grid-column: 1;
-    grid-row: 2;
-    margin-left: 0;
-    width: 100%;
-    max-width: 320px;
-  }
-  .header-box { grid-row: 3; }
+  .logo-header { width: clamp(160px, 45vw, 220px); }
+
+  /* Hero — tighter rhythm, less scroll before the first image shows */
+  .hero { padding-top: clamp(28px, 7vw, 48px); }
+  .hero-eyebrow { margin-bottom: 4px; }
+  .hero-title { font-size: clamp(2.5rem, 13vw, 3.5rem); max-width: 100%; }
+  .hero-lead { margin-top: 20px; max-width: 92%; }
+  .btn-hero { margin-top: 24px; width: 100%; max-width: 320px; }
+
+  /* Hero carousel — full-bleed edge-to-edge on phones, no rounded cards */
+  .hero-carousel { margin-top: 28px; }
+  .hero-carousel-track { gap: 2px; padding-inline: 0; }
+  .hero-slide { width: 100vw; aspect-ratio: 4 / 3; border-radius: 0; }
+  .hero-slide img { border-radius: 0; }
+  .hero-carousel-controls { padding-inline: 20px; margin-top: 16px; }
 }
 
 @media (max-width: 560px) {
-  .site-nav { font-size: 15px; width: 260px; }
   .gallery-row { grid-template-columns: 1fr; }
   .gallery-row figure:last-child { aspect-ratio: 3 / 4; }
   .btn-wide, .btn-meet { width: 100%; }
