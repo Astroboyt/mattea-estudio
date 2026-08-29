@@ -319,6 +319,10 @@
       <p class="contact-lead" data-anim="reveal">Have a wall waiting for a story?</p>
 
       <form class="lead-form" novalidate>
+        <div class="field-hp" aria-hidden="true">
+          <label for="f-hp">Company</label>
+          <input id="f-hp" name="company" type="text" tabindex="-1" autocomplete="off" />
+        </div>
         <div class="field" data-anim="field">
           <label for="f-name">Name</label>
           <input id="f-name" name="name" type="text" autocomplete="name" required />
@@ -340,6 +344,7 @@
           <textarea id="f-message" name="message" rows="2" required></textarea>
         </div>
         <button class="btn btn-send" type="submit" data-anim="reveal"><span>Send it over</span></button>
+        <p class="form-error" role="alert" hidden>Something went wrong. Please email us directly at <a href="mailto:matteaestudio@gmail.com">matteaestudio@gmail.com</a>.</p>
         <p class="form-done h-script" hidden>Thank you &mdash; we&rsquo;ll write back soon.</p>
       </form>
     </section>

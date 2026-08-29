@@ -638,7 +638,21 @@ body.menu-open { overflow: hidden; }
 .field-message textarea:focus-visible { box-shadow: inset 0 0 0 1px var(--black); }
 
 .btn-send { margin-top: 40px; }
+.btn-send:disabled { opacity: 0.55; cursor: default; }
 .form-done { margin-top: 40px; }
+
+.form-error { margin-top: 20px; color: #b0202a; max-width: 40ch; }
+.form-error a { color: inherit; text-decoration: underline; }
+.form-error[hidden] { display: none; }
+
+/* Honeypot — off-screen, never shown to real users */
+.field-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 
 /* ============================================================
    FAQ

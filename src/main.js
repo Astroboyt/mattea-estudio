@@ -54,14 +54,17 @@ document.querySelectorAll('.faq-item').forEach((item) => {
 })
 
 /* ------------------------------------------------------------
-   Lead form — front-end only for now
+   Lead form — uploads photos to Blob, then posts to /api/contact
    ------------------------------------------------------------ */
 const form = document.querySelector('.lead-form')
 if (form) {
-  form.addEventListener('submit', (e) => {
-    e.preventDefault()
-    if (!form.reportValidity()) return
-    const done = form.querySelector('.form-done')
+  const done = form.querySelector('.form-done')
+  const errEl = form.querySelector('.form-error')
+  const btn = form.querySelector('.btn-send')
+  const btnLabel = btn.querySelector('span')
+  const val = (sel) => (form.querySelector(sel)?.value || '').trim()
+
+  const showDone = () => {
     const parts = form.querySelectorAll('.field, .btn-send')
     done.hidden = false
     if (reduceMotion) {
@@ -73,6 +76,56 @@ if (form) {
       .set(parts, { display: 'none' })
       .fromTo(done, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
       .add(() => ScrollTrigger.refresh())
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    if (!form.reportValidity()) return
+
+    errEl.hidden = true
+    btn.disabled = true
+    const label = btnLabel.textContent
+    btnLabel.textContent = 'Sending…'
+
+    try {
+      /* Photos go straight to Blob so large phone pics don't hit the
+         serverless body limit; the email carries the URLs. */
+      const files = Array.from(form.querySelector('#f-photos')?.files || [])
+      let photos = []
+      if (files.length) {
+        const { upload } = await import('@vercel/blob/client')
+        photos = await Promise.all(
+          files.map(async (file) => {
+            const safe = file.name.replace(/[^\w.\-]+/g, '_')
+            const blob = await upload(`enquiries/${Date.now()}-${safe}`, file, {
+              access: 'public',
+              handleUploadUrl: '/api/blob-upload',
+            })
+            return blob.url
+          })
+        )
+      }
+
+      const resp = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: val('#f-name'),
+          email: val('#f-email'),
+          place: val('#f-place'),
+          message: val('#f-message'),
+          company: val('#f-hp'),
+          photos,
+        }),
+      })
+      if (!resp.ok) throw new Error('request failed')
+
+      showDone()
+    } catch (err) {
+      btn.disabled = false
+      btnLabel.textContent = label
+      errEl.hidden = false
+    }
   })
 }
 
