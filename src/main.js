@@ -77,18 +77,26 @@ if (form) {
 }
 
 /* ------------------------------------------------------------
-   Hero carousel — arrow buttons, native scroll + snap
+   Carousels — arrow buttons, native scroll + snap, drag-to-scroll
+   Drives the hero strip and any project media carousel.
    Runs regardless of motion preference (arrows are a control)
    ------------------------------------------------------------ */
-const carousel = document.querySelector('.hero-carousel')
-if (carousel) {
-  const viewport = carousel.querySelector('.hero-carousel-viewport')
-  const track = carousel.querySelector('.hero-carousel-track')
+function initCarousel(carousel) {
+  const viewport = carousel.querySelector('[data-carousel-viewport]')
+  const track = carousel.querySelector('[data-carousel-track]')
+  const controls = carousel.querySelector('.hero-carousel-controls, .media-carousel-controls')
   const prev = carousel.querySelector('[data-dir="prev"]')
   const next = carousel.querySelector('[data-dir="next"]')
+  if (!viewport || !track) return
+
+  /* One slide or none, or arrows missing — nothing to drive, hide them */
+  if (track.children.length < 2 || !prev || !next) {
+    if (controls) controls.hidden = true
+    return
+  }
 
   const step = () => {
-    const slide = track.querySelector('.hero-slide')
+    const slide = track.children[0]
     const gap = parseFloat(getComputedStyle(track).columnGap) || 24
     return slide ? slide.getBoundingClientRect().width + gap : viewport.clientWidth
   }
@@ -118,6 +126,7 @@ if (carousel) {
   let down = false, startX = 0, startScroll = 0, moved = false
   viewport.addEventListener('pointerdown', (e) => {
     if (e.pointerType === 'touch') return // native touch scroll handles this
+    if (e.target.closest('video, .media-play')) return // leave the video + play button alone
     down = true; moved = false
     startX = e.clientX
     startScroll = viewport.scrollLeft
@@ -138,11 +147,39 @@ if (carousel) {
   }
   viewport.addEventListener('pointerup', endDrag)
   viewport.addEventListener('pointercancel', endDrag)
-  /* Prevent click-through on images after a drag */
+  /* Prevent click-through on slides after a drag */
   viewport.addEventListener('click', (e) => {
     if (moved) { e.preventDefault(); e.stopPropagation() }
   }, true)
   viewport.style.cursor = 'grab'
+}
+
+document.querySelectorAll('.hero-carousel, .media-carousel').forEach(initCarousel)
+
+/* ------------------------------------------------------------
+   Project videos — big centred play button over the poster.
+   Native controls stay off until the first play, then take over.
+   The `js-video` flag lets CSS keep the button hidden (native
+   controls only) when this script never runs.
+   ------------------------------------------------------------ */
+const mediaPlays = document.querySelectorAll('.media-play')
+if (mediaPlays.length) {
+  document.documentElement.classList.add('js-video')
+  mediaPlays.forEach((btn) => {
+    const video = btn.parentElement.querySelector('video')
+    if (!video) return
+    video.removeAttribute('controls')
+    btn.addEventListener('click', () => {
+      video.setAttribute('controls', '')
+      video.play().catch(() => {})
+    })
+    video.addEventListener('play', () => { btn.hidden = true })
+    video.addEventListener('ended', () => {
+      video.removeAttribute('controls')
+      video.load() // back to the poster frame
+      btn.hidden = false
+    })
+  })
 }
 
 /* ------------------------------------------------------------

@@ -309,14 +309,16 @@ body.menu-open { overflow: hidden; }
   padding-inline: 24px;
   width: max-content;
 }
+/* Fixed height, natural width — each photo keeps its own orientation
+   (verticals stay vertical) and they line up as a filmstrip. */
 .hero-slide {
   flex: none;
-  width: min(1271px, calc(100vw - 48px));
-  aspect-ratio: 1271 / 599;
+  height: min(62vh, 600px);
   border-radius: 4px;
+  overflow: hidden;
   scroll-snap-align: start;
 }
-.hero-slide img { border-radius: 4px; }
+.hero-slide img { width: auto; height: 100%; border-radius: 4px; }
 
 .hero-carousel-controls {
   display: flex;
@@ -343,6 +345,95 @@ body.menu-open { overflow: hidden; }
 .carousel-arrow:focus-visible { outline: 2px solid var(--black); outline-offset: 3px; }
 .carousel-arrow:disabled { opacity: 0.3; cursor: default; }
 .carousel-arrow svg { display: block; }
+
+/* Project media carousel — portrait video first, photos after.
+   Same scroll/snap/arrow machinery as the hero strip. */
+.media-carousel {
+  margin-top: clamp(24px, 2.4vw, 40px);
+  position: relative;
+}
+.media-carousel-viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.media-carousel-viewport::-webkit-scrollbar { display: none; }
+
+.media-carousel-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+}
+.media-slide {
+  flex: none;
+  position: relative;
+  height: min(70vh, 600px);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #ededed;
+  scroll-snap-align: start;
+}
+.media-slide > video,
+.media-slide > img {
+  display: block;
+  height: 100%;
+  width: auto;
+  border-radius: 4px;
+}
+
+/* Big centred play button over the poster (removed once playback starts).
+   Hidden unless main.js is running — no-JS falls back to native controls. */
+.media-play { display: none; }
+.js-video .media-play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  z-index: 2;
+  width: clamp(66px, 11vw, 104px);
+  height: clamp(66px, 11vw, 104px);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--white);
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+.media-play:hover,
+.media-play:focus-visible {
+  background: rgba(0, 0, 0, 0.78);
+  transform: scale(1.06);
+}
+.media-play:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+.media-play svg { width: 42%; height: 42%; margin-left: 8%; display: block; }
+.media-play[hidden] { display: none; }
+
+/* Box is shorter than the 9:16 footage; cover + top anchor crops the
+   bottom ~12% away, taking the burned-in running captions with it. */
+.media-slide-video { aspect-ratio: 9 / 14; }
+.media-slide-video video {
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+  background: var(--black);
+}
+
+/* Landscape variant — 16:9 project videos (e.g. the stitched timelapse).
+   Whole strip runs shorter so photos sit flush with the video. */
+.media-carousel--wide .media-slide { height: min(56vh, 460px); }
+.media-slide-video-wide { aspect-ratio: 16 / 9; }
+.media-slide-video-wide video { object-position: center; }
+
+.media-carousel-controls {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.media-carousel-controls[hidden] { display: none; }
 
 /* ============================================================
    Project blocks (Barcelona High School / Dionysus Vineyard)
@@ -731,11 +822,10 @@ body.menu-open { overflow: hidden; }
   .hero-lead { margin-top: 20px; max-width: 92%; }
   .btn-hero { margin-top: 24px; width: 100%; max-width: 320px; }
 
-  /* Hero carousel — full-bleed edge-to-edge on phones, no rounded cards */
+  /* Hero carousel — shorter filmstrip on phones */
   .hero-carousel { margin-top: 28px; }
-  .hero-carousel-track { gap: 2px; padding-inline: 0; }
-  .hero-slide { width: 100vw; aspect-ratio: 4 / 3; border-radius: 0; }
-  .hero-slide img { border-radius: 0; }
+  .hero-carousel-track { gap: 8px; padding-inline: 20px; }
+  .hero-slide { height: min(58vh, 440px); }
   .hero-carousel-controls { padding-inline: 20px; margin-top: 16px; }
 }
 
