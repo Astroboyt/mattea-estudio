@@ -176,20 +176,15 @@ h1, h2, h3, p { margin: 0; }
 
 .header-box {
   justify-self: end;
-  width: 195px;
-  height: 37px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--black);
   color: var(--black);
-  transition: background-color 0.25s ease, color 0.25s ease;
+  transition: opacity 0.25s ease;
 }
-.header-box:hover, .header-box:focus-visible {
-  background: var(--black);
-  color: var(--white);
-  outline: none;
-}
+.header-box svg { width: 24px; height: 24px; }
+.header-box:hover { opacity: 0.55; }
+.header-box:focus-visible { outline: 2px solid var(--black); outline-offset: 3px; }
 
 /* Mobile menu toggle + overlay — hamburger shown only on phones (≤640px) */
 .menu-toggle {
