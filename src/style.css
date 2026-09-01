@@ -1429,3 +1429,91 @@ body.lightbox-open { overflow: hidden; }
   line-height: 1.35;
 }
 
+/* ============================================================
+   PHONE — image-first layout
+   On phones the site is mostly photos, so drop the sideways
+   swipe carousels and cropped grids: every image goes edge to
+   edge at its natural shape and the page scrolls straight down.
+   CSS only — the carousel JS already no-ops on touch, we just
+   hide its arrows.
+   ============================================================ */
+@media (max-width: 640px) {
+
+  /* ---- Landing: project media carousels -> vertical full-bleed stack ---- */
+  .media-carousel {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-top: 20px;
+  }
+  .media-carousel-viewport {
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+  .media-carousel-track {
+    flex-direction: column;
+    width: 100%;
+    gap: 6px;
+  }
+  .media-slide,
+  .media-carousel--wide .media-slide {
+    flex: none;
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    scroll-snap-align: none;
+  }
+  .media-slide > img {
+    width: 100%;
+    height: auto;
+  }
+  /* keep the portrait/landscape video framed (burned-in captions sit
+     just below the crop) but let it fill the width */
+  .media-slide-video video,
+  .media-slide-video-wide video {
+    width: 100%;
+    height: 100%;
+  }
+  .media-carousel-controls { display: none; }
+
+  /* ---- Gallery page -> one full-width column, real aspect ratios ---- */
+  .gallery-page { padding-inline: 0; }
+  .gallery-page > h1,
+  .gallery-page > .rule { margin-inline: 20px; }
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    border: 0;
+    gap: 6px;
+  }
+  .gallery-item {
+    aspect-ratio: auto;
+    border: 0;
+  }
+  .gallery-item img {
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+  }
+
+  /* ---- "Where Stories Meet Walls" -> stack instead of side-scroll ---- */
+  .stories-pin { overflow: visible; }
+  .stories-track {
+    flex-direction: column;
+    width: 100%;
+    padding-inline: 0;
+    gap: 6px;
+  }
+  .story,
+  .story-wide,
+  .story-tall {
+    flex: none;
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    scroll-snap-align: none;
+  }
+  .story img { width: 100%; height: auto; }
+}
+
