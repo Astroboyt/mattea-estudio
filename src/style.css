@@ -263,6 +263,14 @@ body.menu-open { overflow: hidden; }
   align-items: center;
   text-align: center;
 }
+.hero-welcome {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(0.9rem, 0.82rem + 0.3vw, 1.05rem);
+  letter-spacing: 0.02em;
+  color: var(--grey);
+  margin-bottom: 10px;
+}
 .hero-eyebrow {
   font-family: var(--font-body);
   font-style: normal;
