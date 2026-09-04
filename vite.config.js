@@ -31,6 +31,7 @@ export default defineConfig({
         blogColorTheory: resolve(__dirname, 'blog-color-theory.html'),
         blogBlankWall: resolve(__dirname, 'blog-blank-wall.html'),
         blogBranding: resolve(__dirname, 'blog-branding.html'),
+        blogEducationalSpaces: resolve(__dirname, 'blog-educational-spaces.html'),
       },
     },
   },

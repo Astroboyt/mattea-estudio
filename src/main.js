@@ -106,14 +106,28 @@ if (form) {
         )
       }
 
+      /* Optional extra fields (only on the schools landing page) get
+         folded into the message so the studio inbox sees everything. */
+      const extra = [
+        ['School / institution', val('#f-school')],
+        ['Phone', val('#f-phone')],
+        ['Location type', val('#f-loctype')],
+        ['Wall dimensions', val('#f-dims')],
+      ].filter(([, v]) => v)
+      const message = [
+        ...extra.map(([k, v]) => `${k}: ${v}`),
+        extra.length ? '' : null,
+        val('#f-message'),
+      ].filter((l) => l !== null).join('\n')
+
       const resp = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: val('#f-name'),
           email: val('#f-email'),
-          place: val('#f-place'),
-          message: val('#f-message'),
+          place: val('#f-place') || val('#f-loctype'),
+          message,
           company: val('#f-hp'),
           photos,
         }),
@@ -286,9 +300,11 @@ function init() {
     new Promise((resolve) => setTimeout(resolve, 2000)),
   ])
   fontsReady.then(() => {
-    const heroSplit = new SplitText('.hero-title', { type: 'lines', mask: 'lines' })
-    gsap.set('.hero-title', { opacity: 1 })
-    gsap.from(heroSplit.lines, { yPercent: 110, duration: 1.1, stagger: 0.12, ease: 'power3.out', delay: 0.15 })
+    if (document.querySelector('.hero-title')) {
+      const heroSplit = new SplitText('.hero-title', { type: 'lines', mask: 'lines' })
+      gsap.set('.hero-title', { opacity: 1 })
+      gsap.from(heroSplit.lines, { yPercent: 110, duration: 1.1, stagger: 0.12, ease: 'power3.out', delay: 0.15 })
+    }
 
     /* Script headings — word-by-word rise */
     document.querySelectorAll('[data-anim="words"]').forEach((el) => {
