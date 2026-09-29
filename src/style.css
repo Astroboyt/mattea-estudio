@@ -120,30 +120,33 @@ h1, h2, h3, p { margin: 0; }
   margin-left: -40px;
   font-size: 18px;
   line-height: 1;
-  width: 312px;
+  width: auto;
   max-width: 100%;
 }
-.nav-row { display: grid; }
+.nav-row { display: grid; grid-auto-flow: column; grid-auto-columns: max-content; width: fit-content; }
 .nav-row a {
   color: var(--black);
   text-decoration: none;
   padding: 9px 12px 10px;
+  white-space: nowrap;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 .nav-row a:hover, .nav-row a:focus-visible { background: var(--black); color: var(--white); outline: none; }
+.nav-row a:first-child { border-right: 1px solid var(--black); }
 .nav-row-1 {
-  grid-template-columns: 97fr 107fr 108fr;
   border: 1px solid var(--black);
 }
-.nav-row-1 a:nth-child(-n + 2) { border-right: 1px solid var(--black); }
-.nav-row-2 {
-  grid-template-columns: 97fr 107fr;
-  width: 65.4%; /* 204 / 312 */
+.nav-row-2,
+.nav-row-3 {
   border-left: 1px solid var(--black);
   border-right: 1px solid var(--black);
   border-bottom: 1px solid var(--black);
 }
-.nav-row-2 a:first-child { border-right: 1px solid var(--black); }
+.nav-row a.nav-link-wrap {
+  white-space: normal;
+  max-width: 118px;
+  line-height: 1.2;
+}
 
 .logo { color: var(--black); display: inline-block; }
 .logo svg { display: block; width: 100%; height: auto; }
@@ -429,6 +432,46 @@ body.menu-open { overflow: hidden; }
   margin-top: 20px;
 }
 .media-carousel-controls[hidden] { display: none; }
+
+/* Selected Projects — 2-row photo gallery slider.
+   Each track child is one "column": either a single full-height photo
+   (sized like a normal .media-slide, auto-width from its own aspect
+   ratio) or a .media-slide-pair stacking two photos top/bottom in a
+   fixed-width column, cropped to fill. Every photo carries a small
+   caption naming which project it's from. */
+.slide-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 14px 9px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--white);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+.media-slide-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: clamp(210px, 19vw, 260px);
+}
+.media-slide-pair .pair-img {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #ededed;
+}
+.media-slide-pair .pair-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
 /* ============================================================
    Project blocks (Barcelona High School / Dionysus Vineyard)
@@ -1574,6 +1617,13 @@ body.lightbox-open { overflow: hidden; }
     height: 100%;
   }
   .media-carousel-controls { display: none; }
+
+  /* Selected Projects gallery: flatten paired columns into the same
+     full-bleed single-photo stack as everything else */
+  .media-slide-pair { width: 100%; gap: 6px; }
+  .media-slide-pair .pair-img { flex: none; border-radius: 0; }
+  .media-slide-pair .pair-img img { height: auto; object-fit: initial; }
+  .slide-caption { font-size: 12px; padding: 8px 12px 7px; }
 
   /* ---- Gallery page -> one full-width column, real aspect ratios ---- */
   .gallery-page { padding-inline: 0; }
