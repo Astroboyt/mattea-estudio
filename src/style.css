@@ -264,8 +264,8 @@ body.menu-open { overflow: hidden; }
   padding-top: clamp(72px, 8vw, 142px);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
 }
 .hero-eyebrow {
   font-family: var(--font-body);
