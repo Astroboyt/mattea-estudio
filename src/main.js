@@ -219,6 +219,69 @@ function initCarousel(carousel) {
     if (moved) { e.preventDefault(); e.stopPropagation() }
   }, true)
   viewport.style.cursor = 'grab'
+
+  /* Slow ambient auto-scroll (opt-in via data-autoscroll) — drifts
+     forward on its own, pauses on any interaction or hover, loops
+     back to the start once it reaches the end. Off for
+     prefers-reduced-motion. */
+  if (carousel.hasAttribute('data-autoscroll') && !reduceMotion) {
+    /* Mandatory scroll-snap fights a slow incremental scrollLeft drift —
+       the browser keeps re-snapping to the nearest slide instead of
+       letting the position advance. Auto-scroll doesn't need snap
+       precision, so drop it on this viewport. */
+    viewport.style.scrollSnapType = 'none'
+    const PX_PER_SEC = 22
+    /* GSAP's entrance timeline + its ScrollTrigger.refresh() calls keep
+       resetting nested scroll containers for about a second and a half
+       after load — starting the drift before that settles just gets it
+       stomped back to 0. Give it a beat first. */
+    const START_DELAY = 1800
+    let paused = false
+    let resumeTimer = null
+    let last = null
+    /* scrollLeft rounds to an integer pixel on every write, so a plain
+       `viewport.scrollLeft += 0.3px/frame` reads back as unchanged and
+       never accumulates. Track the true position ourselves instead. */
+    let pos = viewport.scrollLeft
+
+    const resync = () => { pos = viewport.scrollLeft }
+
+    const pauseFor = (ms) => {
+      paused = true
+      clearTimeout(resumeTimer)
+      resumeTimer = setTimeout(() => { paused = false; last = null; resync() }, ms)
+    }
+
+    const frame = (now) => {
+      if (last === null) last = now
+      const dt = now - last
+      last = now
+      if (!paused && !down) {
+        const max = viewport.scrollWidth - viewport.clientWidth
+        if (pos >= max - 1) {
+          pos = 0
+          pauseFor(1600)
+          viewport.scrollTo({ left: 0, behavior: 'smooth' })
+        } else {
+          pos += (PX_PER_SEC * dt) / 1000
+          viewport.scrollLeft = pos
+        }
+      }
+      requestAnimationFrame(frame)
+    }
+
+    viewport.addEventListener('pointerdown', () => pauseFor(4000))
+    viewport.addEventListener('wheel', () => pauseFor(4000), { passive: true })
+    viewport.addEventListener('mouseenter', () => { paused = true })
+    viewport.addEventListener('mouseleave', () => { paused = false; last = null; resync() })
+    prev.addEventListener('click', () => pauseFor(4000))
+    next.addEventListener('click', () => pauseFor(4000))
+
+    setTimeout(() => {
+      resync()
+      requestAnimationFrame(frame)
+    }, START_DELAY)
+  }
 }
 
 document.querySelectorAll('.hero-carousel, .media-carousel').forEach(initCarousel)
