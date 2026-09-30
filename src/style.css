@@ -121,7 +121,7 @@ h1, h2, h3, p { margin: 0; }
   font-size: 18px;
   line-height: 1;
   display: grid;
-  grid-template-columns: repeat(2, max-content);
+  grid-template-columns: repeat(3, max-content);
   width: fit-content;
   max-width: 100%;
   border: 1px solid var(--black);
@@ -139,8 +139,8 @@ h1, h2, h3, p { margin: 0; }
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 .site-nav a:hover, .site-nav a:focus-visible { background: var(--black); color: var(--white); outline: none; }
-.site-nav a:nth-child(2n) { border-right: none; }
-.site-nav a:nth-child(n + 5) { border-bottom: none; }
+.site-nav a:nth-child(3n) { border-right: none; }
+.site-nav a:nth-child(n + 4) { border-bottom: none; }
 .site-nav a.nav-link-wrap {
   white-space: normal;
   max-width: 118px;
