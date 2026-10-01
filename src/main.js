@@ -6,6 +6,7 @@ import { SplitText } from 'gsap/SplitText'
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText)
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+let smoother
 
 /* ------------------------------------------------------------
    Mobile menu toggle — runs regardless of motion preference
@@ -284,31 +285,52 @@ function initCarousel(carousel) {
   }
 }
 
-document.querySelectorAll('.hero-carousel, .media-carousel').forEach(initCarousel)
+document.querySelectorAll('.hero-carousel').forEach(initCarousel)
 
 /* ------------------------------------------------------------
-   Project videos — big centred play button over the poster.
-   Native controls stay off until the first play, then take over.
-   The `js-video` flag lets CSS keep the button hidden (native
-   controls only) when this script never runs.
+   Gallery — click (or Enter/Space) opens the full image
+   Runs regardless of motion preference (it's a control, not animation)
    ------------------------------------------------------------ */
-const mediaPlays = document.querySelectorAll('.media-play')
-if (mediaPlays.length) {
-  document.documentElement.classList.add('js-video')
-  mediaPlays.forEach((btn) => {
-    const video = btn.parentElement.querySelector('video')
-    if (!video) return
-    video.removeAttribute('controls')
-    btn.addEventListener('click', () => {
-      video.setAttribute('controls', '')
-      video.play().catch(() => {})
+const galleryItems = document.querySelectorAll('.gallery-item')
+const lightbox = document.querySelector('[data-lightbox]')
+if (galleryItems.length && lightbox) {
+  const lightboxImg = lightbox.querySelector('.lightbox-img')
+  const closeBtn = lightbox.querySelector('.lightbox-close')
+  let lastFocused = null
+
+  const openLightbox = (item) => {
+    const img = item.querySelector('img')
+    lightboxImg.src = img.src
+    lightboxImg.alt = img.alt
+    lastFocused = item
+    lightbox.classList.add('is-open')
+    document.body.classList.add('lightbox-open')
+    if (smoother) smoother.paused(true)
+    closeBtn.focus()
+  }
+  const closeLightbox = () => {
+    lightbox.classList.remove('is-open')
+    document.body.classList.remove('lightbox-open')
+    lightboxImg.src = ''
+    if (smoother) smoother.paused(false)
+    if (lastFocused) lastFocused.focus()
+  }
+
+  galleryItems.forEach((item) => {
+    item.addEventListener('click', () => openLightbox(item))
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        openLightbox(item)
+      }
     })
-    video.addEventListener('play', () => { btn.hidden = true })
-    video.addEventListener('ended', () => {
-      video.removeAttribute('controls')
-      video.load() // back to the poster frame
-      btn.hidden = false
-    })
+  })
+  closeBtn.addEventListener('click', closeLightbox)
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox()
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox()
   })
 }
 
@@ -323,7 +345,7 @@ if (reduceMotion) {
 
 function init() {
   /* Smooth scrolling */
-  const smoother = ScrollSmoother.create({
+  smoother = ScrollSmoother.create({
     wrapper: '#smooth-wrapper',
     content: '#smooth-content',
     smooth: 1.2,

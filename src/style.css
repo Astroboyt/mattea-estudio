@@ -345,135 +345,6 @@ body.menu-open { overflow: hidden; }
 .carousel-arrow:disabled { opacity: 0.3; cursor: default; }
 .carousel-arrow svg { display: block; }
 
-/* Project media carousel — portrait video first, photos after.
-   Same scroll/snap/arrow machinery as the hero strip. */
-.media-carousel {
-  margin-top: clamp(24px, 2.4vw, 40px);
-  position: relative;
-}
-.media-carousel-viewport {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-.media-carousel-viewport::-webkit-scrollbar { display: none; }
-
-.media-carousel-track {
-  display: flex;
-  gap: 24px;
-  width: max-content;
-}
-.media-slide {
-  flex: none;
-  position: relative;
-  height: min(70vh, 600px);
-  border-radius: 4px;
-  overflow: hidden;
-  background: #ededed;
-  scroll-snap-align: start;
-}
-.media-slide > video,
-.media-slide > img {
-  display: block;
-  height: 100%;
-  width: auto;
-  border-radius: 4px;
-}
-
-/* Big centred play button over the poster (removed once playback starts).
-   Hidden unless main.js is running — no-JS falls back to native controls. */
-.media-play { display: none; }
-.js-video .media-play {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  z-index: 2;
-  width: clamp(66px, 11vw, 104px);
-  height: clamp(66px, 11vw, 104px);
-  display: grid;
-  place-items: center;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.5);
-  color: var(--white);
-  cursor: pointer;
-  transition: background-color 0.25s ease, transform 0.25s ease;
-}
-.media-play:hover,
-.media-play:focus-visible {
-  background: rgba(0, 0, 0, 0.78);
-  transform: scale(1.06);
-}
-.media-play:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
-.media-play svg { width: 42%; height: 42%; margin-left: 8%; display: block; }
-.media-play[hidden] { display: none; }
-
-/* Box is shorter than the 9:16 footage; cover + top anchor crops the
-   bottom ~12% away, taking the burned-in running captions with it. */
-.media-slide-video { aspect-ratio: 9 / 14; }
-.media-slide-video video {
-  width: 100%;
-  object-fit: cover;
-  object-position: top;
-  background: var(--black);
-}
-
-/* Landscape variant — 16:9 project videos (e.g. the stitched timelapse).
-   Whole strip runs shorter so photos sit flush with the video. */
-.media-carousel--wide .media-slide { height: min(56vh, 460px); }
-.media-slide-video-wide { aspect-ratio: 16 / 9; }
-.media-slide-video-wide video { object-position: center; }
-
-.media-carousel-controls {
-  display: flex;
-  gap: 12px;
-  justify-content: flex-end;
-  margin-top: 20px;
-}
-.media-carousel-controls[hidden] { display: none; }
-
-/* Selected Projects — 2-row photo gallery slider.
-   Each track child is one "column": either a single full-height photo
-   (sized like a normal .media-slide, auto-width from its own aspect
-   ratio) or a .media-slide-pair stacking two photos top/bottom in a
-   fixed-width column, cropped to fill. Every photo carries a small
-   caption naming which project it's from. */
-.slide-caption {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 10px 14px 9px;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  color: var(--white);
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
-  pointer-events: none;
-}
-.media-slide-pair {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: clamp(210px, 19vw, 260px);
-}
-.media-slide-pair .pair-img {
-  position: relative;
-  flex: 1 1 0;
-  min-height: 0;
-  border-radius: 4px;
-  overflow: hidden;
-  background: #ededed;
-}
-.media-slide-pair .pair-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
 /* ============================================================
    Project blocks (Barcelona High School / Dionysus Vineyard)
    ============================================================ */
@@ -492,6 +363,33 @@ body.menu-open { overflow: hidden; }
 .project-body p + p { margin-top: 1.35em; }
 
 .shell .rule { margin-top: clamp(32px, 2.8vw, 49px); }
+
+/* ============================================================
+   Before / After — "Still think a mural won't change the space?"
+   ============================================================ */
+.before-after { padding-top: clamp(32px, 2.7vw, 48px); }
+.before-after-lead {
+  margin-top: 13px;
+  max-width: 700px;
+  color: var(--grey);
+  font-size: clamp(1.05rem, 0.95rem + 0.3vw, 1.25rem);
+}
+.before-after-grid {
+  margin-top: clamp(32px, 3vw, 48px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 24px;
+}
+.before-after-item { margin: 0; }
+.before-after-item img { aspect-ratio: 4 / 3; border-radius: 4px; }
+.before-after-item figcaption {
+  margin-top: 14px;
+  font-weight: 500;
+  font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.125rem);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
 
 /* ============================================================
    About
@@ -1344,6 +1242,31 @@ body.lightbox-open { overflow: hidden; }
   aspect-ratio: 1408 / 768;
 }
 
+/* Masonry-style photo gallery — reuses .gallery-item's cursor/hover-zoom
+   and the lightbox JS hook, but (unlike the Gallery page's bordered grid)
+   keeps each photo's natural aspect ratio instead of cropping to 4:5.
+   These are documentary "whole room" shots; a hard crop loses the point. */
+.edu-photo-gallery {
+  margin-top: clamp(40px, 4vw, 72px);
+  column-count: 3;
+  column-gap: 16px;
+}
+.edu-photo-gallery .gallery-item {
+  aspect-ratio: auto;
+  margin: 0 0 16px;
+  border: 0;
+  border-radius: 4px;
+  break-inside: avoid;
+}
+.edu-photo-gallery .gallery-item img { position: static; width: 100%; height: auto; display: block; }
+
+@media (max-width: 900px) {
+  .edu-photo-gallery { column-count: 2; }
+}
+@media (max-width: 560px) {
+  .edu-photo-gallery { column-count: 1; }
+}
+
 @media (max-width: 900px) {
   .article-hero { grid-template-columns: 1fr; }
   .article-hero-photo { aspect-ratio: 4 / 3; }
@@ -1580,51 +1503,8 @@ body.lightbox-open { overflow: hidden; }
    ============================================================ */
 @media (max-width: 640px) {
 
-  /* ---- Landing: project media carousels -> vertical full-bleed stack ---- */
-  .media-carousel {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    margin-top: 20px;
-  }
-  .media-carousel-viewport {
-    overflow-x: visible;
-    scroll-snap-type: none;
-  }
-  .media-carousel-track {
-    flex-direction: column;
-    width: 100%;
-    gap: 6px;
-  }
-  .media-slide,
-  .media-carousel--wide .media-slide {
-    flex: none;
-    width: 100%;
-    height: auto;
-    border-radius: 0;
-    scroll-snap-align: none;
-  }
-  .media-slide > img {
-    width: 100%;
-    height: auto;
-  }
-  /* keep the portrait/landscape video framed (burned-in captions sit
-     just below the crop) but let it fill the width */
-  .media-slide-video video,
-  .media-slide-video-wide video {
-    width: 100%;
-    height: 100%;
-  }
-  .media-carousel-controls { display: none; }
-
-  /* Selected Projects gallery: flatten paired columns into the same
-     full-bleed single-photo stack as everything else */
-  .media-slide-pair { width: 100%; gap: 6px; }
-  .media-slide-pair .pair-img { flex: none; border-radius: 0; }
-  .media-slide-pair .pair-img img { height: auto; object-fit: initial; }
-  .slide-caption { font-size: 12px; padding: 8px 12px 7px; }
+  /* ---- Landing: before/after -> stacked ---- */
+  .before-after-grid { grid-template-columns: 1fr; gap: 28px; }
 
   /* ---- Gallery page -> one full-width column, real aspect ratios ---- */
   .gallery-page { padding-inline: 0; }
