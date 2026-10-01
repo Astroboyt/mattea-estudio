@@ -376,13 +376,17 @@ body.menu-open { overflow: hidden; }
 }
 .before-after-grid {
   margin-top: clamp(32px, 3vw, 48px);
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: start;
-  gap: 24px;
+  gap: 4px;
 }
 .before-after-item { margin: 0; }
-.before-after-item img { aspect-ratio: 4 / 3; border-radius: 4px; }
+.before-after-item img { aspect-ratio: 4 / 3; display: block; }
 .before-after-item figcaption {
   margin-top: 14px;
   font-weight: 500;
@@ -390,6 +394,8 @@ body.menu-open { overflow: hidden; }
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
+.before-after-item:first-child figcaption { padding-left: var(--margin); }
+.before-after-item:last-child figcaption { padding-right: var(--margin); }
 
 /* ============================================================
    About
@@ -1505,6 +1511,7 @@ body.lightbox-open { overflow: hidden; }
 
   /* ---- Landing: before/after -> stacked ---- */
   .before-after-grid { grid-template-columns: 1fr; gap: 28px; }
+  .before-after-item:last-child figcaption { padding-right: 0; padding-left: var(--margin); }
 
   /* ---- Gallery page -> one full-width column, real aspect ratios ---- */
   .gallery-page { padding-inline: 0; }
